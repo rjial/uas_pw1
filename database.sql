@@ -1,8 +1,38 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     30/11/2021 11:57:38                          */
+/* Created on:     30/11/2021 12:42:31                          */
 /*==============================================================*/
 
+
+alter table AMBIL_LOMBA 
+   drop foreign key FK_AMBIL_LO_AMBIL_LOM_PESERTA;
+
+alter table AMBIL_LOMBA 
+   drop foreign key FK_AMBIL_LO_AMBIL_LOM_LOMBA;
+
+alter table PERGURUAN_TINGGI 
+   drop foreign key FK_PERGURUA_MENGADAKA_LOMBA;
+
+drop table if exists ADMIN;
+
+
+alter table AMBIL_LOMBA 
+   drop foreign key FK_AMBIL_LO_AMBIL_LOM_PESERTA;
+
+alter table AMBIL_LOMBA 
+   drop foreign key FK_AMBIL_LO_AMBIL_LOM_LOMBA;
+
+drop table if exists AMBIL_LOMBA;
+
+drop table if exists LOMBA;
+
+
+alter table PERGURUAN_TINGGI 
+   drop foreign key FK_PERGURUA_MENGADAKA_LOMBA;
+
+drop table if exists PERGURUAN_TINGGI;
+
+drop table if exists PESERTA;
 
 /*==============================================================*/
 /* Table: ADMIN                                                 */
@@ -12,6 +42,16 @@ create table ADMIN
    USERNAME             varchar(20) not null  comment '',
    PASSWORD             varchar(40) not null  comment '',
    primary key (USERNAME)
+);
+
+/*==============================================================*/
+/* Table: AMBIL_LOMBA                                           */
+/*==============================================================*/
+create table AMBIL_LOMBA
+(
+   ID_PESERTA           int not null  comment '',
+   ID_LOMBA             int not null  comment '',
+   primary key (ID_PESERTA, ID_LOMBA)
 );
 
 /*==============================================================*/
@@ -25,7 +65,6 @@ create table LOMBA
    HADIAH               int not null  comment '',
    SERTIFIKAT           varchar(20) not null  comment '',
    ID_LOMBA             int not null auto_increment  comment '',
-   ID_PESERTA           int  comment '',
    primary key (ID_LOMBA)
 );
 
@@ -57,8 +96,11 @@ create table PESERTA
    primary key (ID_PESERTA)
 );
 
-alter table LOMBA add constraint FK_LOMBA_AMBIL_LOM_PESERTA foreign key (ID_PESERTA)
+alter table AMBIL_LOMBA add constraint FK_AMBIL_LO_AMBIL_LOM_PESERTA foreign key (ID_PESERTA)
       references PESERTA (ID_PESERTA) on delete restrict on update restrict;
+
+alter table AMBIL_LOMBA add constraint FK_AMBIL_LO_AMBIL_LOM_LOMBA foreign key (ID_LOMBA)
+      references LOMBA (ID_LOMBA) on delete restrict on update restrict;
 
 alter table PERGURUAN_TINGGI add constraint FK_PERGURUA_MENGADAKA_LOMBA foreign key (ID_LOMBA)
       references LOMBA (ID_LOMBA) on delete restrict on update restrict;
