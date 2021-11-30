@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     30/11/2021 11:36:58                          */
+/* Created on:     30/11/2021 11:57:38                          */
 /*==============================================================*/
 
 
@@ -10,7 +10,7 @@
 create table ADMIN
 (
    USERNAME             varchar(20) not null  comment '',
-   PASSWORD             varchar(20) not null  comment '',
+   PASSWORD             varchar(40) not null  comment '',
    primary key (USERNAME)
 );
 
@@ -20,7 +20,6 @@ create table ADMIN
 create table LOMBA
 (
    NAMA_LOMBA           varchar(30) not null  comment '',
-   NAMA                 varchar(20)  comment '',
    JENIS_LOMBA          varchar(30) not null  comment '',
    TINGKAT_LOMBA        varchar(30) not null  comment '',
    HADIAH               int not null  comment '',
@@ -36,7 +35,6 @@ create table LOMBA
 create table PERGURUAN_TINGGI
 (
    NAMA_PERGURUAN       varchar(20) not null  comment '',
-   NAMA_LOMBA           varchar(30)  comment '',
    ALAMAT               text not null  comment '',
    AKREDITAS            varchar(5) not null  comment '',
    ID_PERGURUAN_TINGGI  int not null auto_increment  comment '',
