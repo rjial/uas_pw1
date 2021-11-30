@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     30/11/2021 09:36:52                          */
+/* Created on:     30/11/2021 11:36:58                          */
 /*==============================================================*/
 
 
@@ -25,7 +25,9 @@ create table LOMBA
    TINGKAT_LOMBA        varchar(30) not null  comment '',
    HADIAH               int not null  comment '',
    SERTIFIKAT           varchar(20) not null  comment '',
-   primary key (NAMA_LOMBA)
+   ID_LOMBA             int not null auto_increment  comment '',
+   ID_PESERTA           int  comment '',
+   primary key (ID_LOMBA)
 );
 
 /*==============================================================*/
@@ -37,7 +39,9 @@ create table PERGURUAN_TINGGI
    NAMA_LOMBA           varchar(30)  comment '',
    ALAMAT               text not null  comment '',
    AKREDITAS            varchar(5) not null  comment '',
-   primary key (NAMA_PERGURUAN)
+   ID_PERGURUAN_TINGGI  int not null auto_increment  comment '',
+   ID_LOMBA             int  comment '',
+   primary key (ID_PERGURUAN_TINGGI)
 );
 
 /*==============================================================*/
@@ -51,12 +55,13 @@ create table PESERTA
    JENIS_KELAMIN        char(1) not null  comment '',
    JURUSAN              varchar(20) not null  comment '',
    ALAMAR               text not null  comment '',
-   primary key (NAMA)
+   ID_PESERTA           int not null auto_increment  comment '',
+   primary key (ID_PESERTA)
 );
 
-alter table LOMBA add constraint FK_LOMBA_AMBIL_LOM_PESERTA foreign key (NAMA)
-      references PESERTA (NAMA) on delete restrict on update restrict;
+alter table LOMBA add constraint FK_LOMBA_AMBIL_LOM_PESERTA foreign key (ID_PESERTA)
+      references PESERTA (ID_PESERTA) on delete restrict on update restrict;
 
-alter table PERGURUAN_TINGGI add constraint FK_PERGURUA_MENGADAKA_LOMBA foreign key (NAMA_LOMBA)
-      references LOMBA (NAMA_LOMBA) on delete restrict on update restrict;
+alter table PERGURUAN_TINGGI add constraint FK_PERGURUA_MENGADAKA_LOMBA foreign key (ID_LOMBA)
+      references LOMBA (ID_LOMBA) on delete restrict on update restrict;
 
