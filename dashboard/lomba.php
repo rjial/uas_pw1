@@ -22,7 +22,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
 $query_lomba = "select * from lomba";
 $stmt_lomba = $db->query($query_lomba);
 $array_lomba = $stmt_lomba->fetchAll();
-var_dump($array_lomba);
+// var_dump($array_lomba);
 ?>
 
 
@@ -90,6 +90,19 @@ var_dump($array_lomba);
                             <td>Sertifikat</td>
                         </tr>
                     </th>
+
+                    <tbody>
+                        <?php foreach ($array_lomba as $lomba) : ?>
+                            <tr>
+                                <td><?php echo $lomba["ID_LOMBA"] ?></td>
+                                <td><?php echo $lomba["NAMA_LOMBA"] ?></td>
+                                <td><?php echo $lomba["JENIS_LOMBA"] ?></td>
+                                <td><?php echo $lomba["TINGKAT_LOMBA"] ?></td>
+                                <td><?php echo $lomba["HADIAH"] ?></td>
+                                <td><?php echo $lomba["SERTIFIKAT"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         </div>
