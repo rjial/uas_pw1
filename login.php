@@ -62,7 +62,7 @@ if (cek_ada($_POST) || cek_ada($_POST)) {
                         </div>
                         <div class="vstack gap-2">
                             <label for="password">Password</label>
-                            <input type="text" name="password_login" id="password_login" class="form-control">
+                            <input type="password" name="password_login" id="password_login" class="form-control">
                         </div>
                         <div>
                             <button class="btn btn-primary float-end" type="submit">Login</button>
