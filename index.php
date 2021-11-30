@@ -3,17 +3,19 @@ require("db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    // header("Location: login.php");
-    echo "asdasdasd";
+    header("Location: login.php");
+    // echo "asdasdasd";
 } else {
-    $id = $_SESSION['login'];
-    $query = "SELECT * from user where id=" . $id;
+    $username = $_SESSION['login'];
+    $query = "SELECT * from admin where username='" . $username . "'";
     $stmt = $db->query($query);
+    // var_dump($stmt);
+    // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(3);
+        $nama = $stmt->fetchColumn(0);
     } else {
-        // header("Location: logout.php");
-        echo "asdasdasd";
+        header("Location: logout.php");
+        // echo "asdasdasd";
     }
 }
 ?>
@@ -27,6 +29,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -37,15 +42,18 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">Hidden brand</a>
+                <a class="navbar-brand" href="#">Lomba</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Lomba</a>
                     </li>
                 </ul>
+                <span class="bg-dark text-white">
+                    <?php echo $username; ?>
+                </span>
             </div>
         </div>
     </nav>
