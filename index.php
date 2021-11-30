@@ -1,3 +1,23 @@
+<?php
+require("db/config.php");
+session_start();
+
+if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
+    // header("Location: login.php");
+    echo "asdasdasd";
+} else {
+    $id = $_SESSION['login'];
+    $query = "SELECT * from user where id=" . $id;
+    $stmt = $db->query($query);
+    if ($stmt->rowCount() > 0) {
+        $nama = $stmt->fetchColumn(3);
+    } else {
+        // header("Location: logout.php");
+        echo "asdasdasd";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
