@@ -59,7 +59,7 @@ $array_lomba = $stmt_lomba->fetchAll();
                         <a class="nav-link active" href="/dashboard/lomba.php">Lomba</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/mhs.php">Mahasiswa</a>
+                        <a class="nav-link" href="/dashboard/peserta.php">Peserta</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard/perguruan_tinggi.php">Perguruan Tinggi</a>

@@ -18,6 +18,11 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         // echo "asdasdasd";
     }
 }
+
+$query_peserta = "select * from peserta";
+$stmt_peserta = $db->query($query_peserta);
+$array_peserta = $stmt_peserta->fetchAll();
+// var_dump($array_lomba);
 ?>
 
 
@@ -48,13 +53,13 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 <a class="navbar-brand" href="#">Lomba</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                        <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard/lomba.php">Lomba</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/peserta.php">Peserta</a>
+                        <a class="nav-link active" href="/dashboard/peserta.php">Peserta</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard/perguruan_tinggi.php">Perguruan Tinggi</a>
@@ -66,10 +71,45 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
             </div>
         </div>
     </nav>
-    <div class="container mt-5">
+    <div class="container mt-5 vstack gap-4">
         <div class="card">
             <div class="card-body">
-                <h5>Selamat Datang di Lomba</h5>
+                <h5>Peserta</h5>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <th>
+                        <tr>
+                            <td>No</td>
+                            <td>Nama</td>
+                            <td>Kelas</td>
+                            <td>Asal</td>
+                            <td>Jenis Kelamin</td>
+                            <td>Jurusan</td>
+                            <td>Alamat</td>
+                        </tr>
+                    </th>
+
+                    <tbody>
+                        <?php foreach ($array_peserta as $peserta) : ?>
+                            <tr>
+                                <td><?php echo $peserta["ID_PESERTA"] ?></td>
+                                <td><?php echo $peserta["NAMA"] ?></td>
+                                <td><?php echo $peserta["KELAS"] ?></td>
+                                <td><?php echo $peserta["ASAL"] ?></td>
+                                <?php if ($peserta["JENIS_KELAMIN"] == "L") : ?>
+                                    <td>Laki-Laki</td>
+                                <?php elseif ($peserta["JENIS_KELAMIN"] == "P") : ?>
+                                    <td>Perempuan</td>
+                                <?php endif; ?>
+                                <td><?php echo $peserta["JURUSAN"] ?></td>
+                                <td><?php echo $peserta["ALAMAR"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
