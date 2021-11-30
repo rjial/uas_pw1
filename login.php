@@ -44,9 +44,18 @@ if (cek_ada($_POST) || cek_ada($_POST)) {
     <link rel="stylesheet" href="style/bootstrap.min.css">
 </head>
 
-<body class="vh-100 vw-100 d-flex ">
+<body class="vh-100 vw-100 d-flex justify-content-center align-items-center">
 
+    <div class="login w-25">
+        <div class="card ">
+            <div class="card-body">
+                <h5 class="text-center">Login</h5>
+                <div class="form-login">
 
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="script/bootstrap.bundle.min.js"></script>
 
