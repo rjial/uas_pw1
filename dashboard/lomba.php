@@ -18,6 +18,11 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         // echo "asdasdasd";
     }
 }
+
+$query_lomba = "select * from lomba";
+$stmt_lomba = $db->query($query_lomba);
+$array_lomba = $stmt_lomba->fetchAll();
+var_dump($array_lomba);
 ?>
 
 
@@ -48,10 +53,10 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 <a class="navbar-brand" href="#">Lomba</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                        <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/lomba.php">Lomba</a>
+                        <a class="nav-link active" href="/dashboard/lomba.php">Lomba</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard/mhs.php">Mahasiswa</a>
@@ -66,10 +71,26 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
             </div>
         </div>
     </nav>
-    <div class="container mt-5">
+    <div class="container mt-5 vstack gap-4">
         <div class="card">
             <div class="card-body">
-                <h5>Selamat Datang di Lomba</h5>
+                <h5>Lomba</h5>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <th>
+                        <tr>
+                            <td>No</td>
+                            <td>Nama</td>
+                            <td>Jenis</td>
+                            <td>Tingkat</td>
+                            <td>Hadiah</td>
+                            <td>Sertifikat</td>
+                        </tr>
+                    </th>
+                </table>
             </div>
         </div>
     </div>
