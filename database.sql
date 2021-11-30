@@ -4,28 +4,6 @@
 /*==============================================================*/
 
 
-alter table LOMBA 
-   drop foreign key FK_LOMBA_AMBIL_LOM_PESERTA;
-
-alter table PERGURUAN_TINGGI 
-   drop foreign key FK_PERGURUA_MENGADAKA_LOMBA;
-
-drop table if exists ADMIN;
-
-
-alter table LOMBA 
-   drop foreign key FK_LOMBA_AMBIL_LOM_PESERTA;
-
-drop table if exists LOMBA;
-
-
-alter table PERGURUAN_TINGGI 
-   drop foreign key FK_PERGURUA_MENGADAKA_LOMBA;
-
-drop table if exists PERGURUAN_TINGGI;
-
-drop table if exists PESERTA;
-
 /*==============================================================*/
 /* Table: ADMIN                                                 */
 /*==============================================================*/
