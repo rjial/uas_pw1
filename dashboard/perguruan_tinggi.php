@@ -50,7 +50,7 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">Lomba</a>
+                <a class="navbar-brand" href="../">Lomba</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
@@ -71,10 +71,10 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
                             <?php echo $username; ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <!-- <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                             <li>
                                 <hr class="dropdown-divider">
-                            </li> -->
+                            </li>
                             <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                         </ul>
                     </li>
