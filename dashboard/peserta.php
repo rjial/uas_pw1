@@ -13,6 +13,8 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     // die();
     if ($stmt->rowCount() > 0) {
         $username = $stmt->fetchColumn(2);
+        $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
+        $array_level = $query_level->fetchAll()[0];
     } else {
         header("Location: /logout.php");
         // echo "asdasdasd";
