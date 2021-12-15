@@ -9,3 +9,17 @@ try {
 } catch (PDOException $exception) {
     echo "Connection error: " . $exception->getMessage();
 }
+
+$jenis_lomba = [
+    "Robotik",
+    "Web"
+];
+
+$tingkat = [
+    "Nasional",
+    "Provinsi"
+];
+
+$sertifikat = [
+    "LSP"
+];

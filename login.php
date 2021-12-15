@@ -18,7 +18,7 @@ if (cek_ada($_POST) || cek_ada($_POST)) {
         $password = md5($password);
         // var_dump(["username" => $username, "password" => $password]);
         // die();
-        $query = "SELECT * from admin where username='" . $username . "' and password='" . $password . "'";
+        $query = "SELECT * from user where username='" . $username . "' and password='" . $password . "'";
         $stmt = $db->query($query);
         if ($stmt->rowCount() > 0) {
             $id = $stmt->fetchColumn(0);

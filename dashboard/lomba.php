@@ -7,12 +7,12 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     // echo "asdasdasd";
 } else {
     $username = $_SESSION['login'];
-    $query = "SELECT * from admin where username='" . $username . "'";
+    $query = "SELECT * from user where username='" . $username . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(0);
+        $nama = $stmt->fetchColumn(2);
     } else {
         header("Location: logout.php");
         // echo "asdasdasd";
@@ -84,8 +84,9 @@ $array_lomba = $stmt_lomba->fetchAll();
     </nav>
     <div class="container mt-5 vstack gap-4">
         <div class="card">
-            <div class="card-body">
-                <h5>Lomba</h5>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h5 class="float-start my-2">Lomba</h5>
+                <a href="/dashboard/tambah_lomba.php" class="btn btn-success flex-end">Tambah</a>
             </div>
         </div>
         <div class="card">

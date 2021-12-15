@@ -7,21 +7,38 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     // echo "asdasdasd";
 } else {
     $username = $_SESSION['login'];
-    $query = "SELECT * from admin where username='" . $username . "'";
+    $query = "SELECT * from user where username='" . $username . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(0);
+        $nama = $stmt->fetchColumn(2);
     } else {
         header("Location: logout.php");
         // echo "asdasdasd";
     }
+    if (!empty($_POST) && isset($_POST)) {
+        var_dump($_POST);
+        $namalmb = $_POST['nama-lomba'];
+        $jenislmb = $_POST['jenis-lomba'];
+        $tngkt = $_POST['tingkat'];
+        $hdh = $_POST['hadiah'];
+        $srti = $_POST['sertifikat'];
+        $query = $db->prepare("INSERT INTO `lomba` (`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`) VALUES (?, ?, ?, ?, ?, NULL)");
+        $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti]);
+        if ($exec) {
+            header("Location: /dashboard/lomba.php");
+        }
+        // foreach ($_POST as $data) {
+        //     echo $data;
+        // }
+
+    }
 }
 
-$query_lomba = "select * from lomba";
-$stmt_lomba = $db->query($query_lomba);
-$array_lomba = $stmt_lomba->fetchAll();
+// $query_lomba = "select * from lomba";
+// $stmt_lomba = $db->query($query_lomba);
+// $array_lomba = $stmt_lomba->fetchAll();
 // var_dump($array_lomba);
 ?>
 
@@ -90,30 +107,44 @@ $array_lomba = $stmt_lomba->fetchAll();
         </div>
         <div class="card">
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="nama-lomba" class="form-label">Nama Lomba</label>
-                    <input type="text" name="nama-lomba" id="nama-lomba" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="jenis-lomba" class="form-label">Jenis Lomba</label>
-                    <select name="jenis-lomba" id="jenis-lomba" class="form-select">
-                        <?php foreach ($jenis_lomba as $jenis) : ?>
-                            <option value="<?php echo $jenis; ?>"><?php echo $jenis; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="tingkat" class="form-label">Tingkat</label>
-                    <select name="tingkat" id="tingkat" class="form-select">
-                        <?php foreach ($tingkat as $tngkt) : ?>
-                            <option value="<?php echo $tngkt; ?>"><?php echo $tngkt; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="hadiah" class="form-label">Hadiah</label>
-                    <input type="number" name="hadiah" id="hadiah" class="form-control">
-                </div>
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="nama-lomba" class="form-label">Nama Lomba</label>
+                        <input type="text" name="nama-lomba" id="nama-lomba" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis-lomba" class="form-label">Jenis Lomba</label>
+                        <select name="jenis-lomba" id="jenis-lomba" class="form-select">
+                            <option value="">Pilih Salah Satu</option>
+                            <?php foreach ($jenis_lomba as $jenis) : ?>
+                                <option value="<?php echo $jenis; ?>"><?php echo $jenis; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tingkat" class="form-label">Tingkat</label>
+                        <select name="tingkat" id="tingkat" class="form-select">
+                            <option value="">Pilih Salah Satu</option>
+                            <?php foreach ($tingkat as $tngkt) : ?>
+                                <option value="<?php echo $tngkt; ?>"><?php echo $tngkt; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sertifikat" class="form-label">Sertifikat</label>
+                        <select name="sertifikat" id="sertifikat" class="form-select">
+                            <option value="">Pilih Salah Satu</option>
+                            <?php foreach ($sertifikat as $serti) : ?>
+                                <option value="<?php echo $serti; ?>"><?php echo $serti; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hadiah" class="form-label">Hadiah</label>
+                        <input type="number" name="hadiah" id="hadiah" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end">Tambah</button>
+                </form>
             </div>
         </div>
     </div>

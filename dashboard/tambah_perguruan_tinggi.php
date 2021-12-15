@@ -19,9 +19,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     }
 }
 
-$query_perguruan_tinggi = "select * from perguruan_tinggi";
-$stmt_perguruan_tinggi = $db->query($query_perguruan_tinggi);
-$array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
+// $query_perguruan_tinggi = "select * from perguruan_tinggi";
+// $stmt_perguruan_tinggi = $db->query($query_perguruan_tinggi);
+// $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
 // var_dump($array_lomba);
 ?>
 
@@ -88,33 +88,36 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
     </nav>
     <div class="container mt-5 vstack gap-4">
         <div class="card">
-            <div class="card-body">
-                <h5>Perguruan Tinggi</h5>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h5 class="py-1">Tambah Lomba</h5>
             </div>
         </div>
         <div class="card">
             <div class="card-body">
-                <table class="table">
-                    <th>
-                        <tr>
-                            <td>No</td>
-                            <td>Nama</td>
-                            <td>Alamat</td>
-                            <td>Akreditas</td>
-                        </tr>
-                    </th>
-
-                    <tbody>
-                        <?php foreach ($array_perguruan_tinggi as $perguruan_tinggi) : ?>
-                            <tr>
-                                <td><?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?></td>
-                                <td><?php echo $perguruan_tinggi["NAMA_PERGURUAN"] ?></td>
-                                <td><?php echo $perguruan_tinggi["ALAMAT"] ?></td>
-                                <td><?php echo $perguruan_tinggi["AKREDITAS"] ?></td>
-                            </tr>
+                <div class="mb-3">
+                    <label for="nama-lomba" class="form-label">Nama Lomba</label>
+                    <input type="text" name="nama-lomba" id="nama-lomba" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="jenis-lomba" class="form-label">Jenis Lomba</label>
+                    <select name="jenis-lomba" id="jenis-lomba" class="form-select">
+                        <?php foreach ($jenis_lomba as $jenis) : ?>
+                            <option value="<?php echo $jenis; ?>"><?php echo $jenis; ?></option>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="tingkat" class="form-label">Tingkat</label>
+                    <select name="tingkat" id="tingkat" class="form-select">
+                        <?php foreach ($tingkat as $tngkt) : ?>
+                            <option value="<?php echo $tngkt; ?>"><?php echo $tngkt; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="hadiah" class="form-label">Hadiah</label>
+                    <input type="number" name="hadiah" id="hadiah" class="form-control">
+                </div>
             </div>
         </div>
     </div>
