@@ -19,6 +19,17 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         header("Location: /logout.php");
         // echo "asdasdasd";
     }
+
+    if (!empty($_POST) && isset($_POST)) {
+        $nama_univ = $_POST['nama-perguruan-tinggi'];
+        $alamat = $_POST['alamat'];
+        $akred = $_POST['akreditas'];
+        $query = $db->prepare("INSERT INTO `perguruan_tinggi` (`NAMA_PERGURUAN`, `ALAMAT`, `AKREDITAS`, `ID_PERGURUAN_TINGGI`) VALUES (?,?,?, NULL)");
+        $exec = $query->execute([$nama_univ, $alamat, $akred]);
+        if ($exec) {
+            header("Location: perguruan_tinggi.php");
+        }
+    }
 }
 
 // $query_perguruan_tinggi = "select * from perguruan_tinggi";
