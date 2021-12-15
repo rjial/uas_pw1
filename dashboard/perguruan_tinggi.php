@@ -6,15 +6,15 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     header("Location: login.php");
     // echo "asdasdasd";
 } else {
-    $username = $_SESSION['login'];
-    $query = "SELECT * from user where username='" . $username . "'";
+    $id = $_SESSION['login'];
+    $query = "SELECT * from user where id_user='" . $id . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(2);
+        $username = $stmt->fetchColumn(2);
     } else {
-        header("Location: logout.php");
+        header("Location: /logout.php");
         // echo "asdasdasd";
     }
 }

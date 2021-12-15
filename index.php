@@ -9,15 +9,19 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     // echo "asdasdasd";
 } else {
     $belum_login = false;
-    $username = $_SESSION['login'];
-    $query = "SELECT * from user where username='" . $username . "'";
+    $id = $_SESSION['login'];
+    // var_dump($id);
+    $query = "SELECT * from user where id_user='" . $id . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
+    // var_dump($stmt);
     if ($stmt->rowCount() > 0) {
         $nama = $stmt->fetchColumn(2);
     } else {
-        header("Location: logout.php");
+        echo "asdasdasd";
+        die();
+        header("Location: /logout.php");
         // echo "asdasdasd";
     }
 }
@@ -77,7 +81,7 @@ $array_lomba = $stmt_lomba->fetchAll();
                     <?php else : ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php echo $username; ?>
+                                <?php echo $nama; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>

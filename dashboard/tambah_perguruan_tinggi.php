@@ -3,18 +3,20 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: login.php");
+    header("Location: /login.php");
     // echo "asdasdasd";
 } else {
-    $username = $_SESSION['login'];
-    $query = "SELECT * from user where username='" . $username . "'";
+    $id = $_SESSION['login'];
+    $query = "SELECT * from user where id_user='" . $id . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(2);
+        $username = $stmt->fetchColumn(2);
+        $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
+        $array_level = $query_level->fetchAll()[0];
     } else {
-        header("Location: logout.php");
+        header("Location: /logout.php");
         // echo "asdasdasd";
     }
 }
@@ -89,35 +91,28 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     <div class="container mt-5 vstack gap-4">
         <div class="card">
             <div class="card-body d-flex align-items-center justify-content-between">
-                <h5 class="py-1">Tambah Lomba</h5>
+                <h5 class="py-1">Tambah Perguruan Tinggi</h5>
             </div>
         </div>
         <div class="card">
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="nama-lomba" class="form-label">Nama Lomba</label>
-                    <input type="text" name="nama-lomba" id="nama-lomba" class="form-control">
+                    <label for="nama-perguruan-tinggi" class="form-label">Nama Perguruan Tinggi</label>
+                    <input type="text" name="nama-perguruan-tinggi" id="nama-perguruan-tinggi" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="jenis-lomba" class="form-label">Jenis Lomba</label>
-                    <select name="jenis-lomba" id="jenis-lomba" class="form-select">
-                        <?php foreach ($jenis_lomba as $jenis) : ?>
-                            <option value="<?php echo $jenis; ?>"><?php echo $jenis; ?></option>
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <textarea name="alamat" id="alamat" rows="6" class="form-control"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="akreditas" class="form-label">Akreditas</label>
+                    <select name="akreditas" id="akreditas" class="form-select">
+                        <?php foreach ($akreditass as $akre) : ?>
+                            <option value="<?php echo $akre; ?>"><?php echo $akre; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="tingkat" class="form-label">Tingkat</label>
-                    <select name="tingkat" id="tingkat" class="form-select">
-                        <?php foreach ($tingkat as $tngkt) : ?>
-                            <option value="<?php echo $tngkt; ?>"><?php echo $tngkt; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="hadiah" class="form-label">Hadiah</label>
-                    <input type="number" name="hadiah" id="hadiah" class="form-control">
-                </div>
+                <button type="submit" class="btn btn-primary float-end">Tambah</button>
             </div>
         </div>
     </div>

@@ -4,51 +4,6 @@
 /*==============================================================*/
 
 
-alter table AMBIL_LOMBA 
-   drop foreign key FK_AMBIL_LO_AMBIL_LOM_PESERTA;
-
-alter table AMBIL_LOMBA 
-   drop foreign key FK_AMBIL_LO_AMBIL_LOM_LOMBA;
-
-alter table LOMBA 
-   drop foreign key FK_LOMBA_RELATIONS_PERGURUA;
-
-alter table PESERTA 
-   drop foreign key FK_PESERTA_RELATIONS_USER;
-
-alter table USER 
-   drop foreign key FK_USER_RELATIONS_USER_LEV;
-
-
-alter table AMBIL_LOMBA 
-   drop foreign key FK_AMBIL_LO_AMBIL_LOM_PESERTA;
-
-alter table AMBIL_LOMBA 
-   drop foreign key FK_AMBIL_LO_AMBIL_LOM_LOMBA;
-
-drop table if exists AMBIL_LOMBA;
-
-
-alter table LOMBA 
-   drop foreign key FK_LOMBA_RELATIONS_PERGURUA;
-
-drop table if exists LOMBA;
-
-drop table if exists PERGURUAN_TINGGI;
-
-
-alter table PESERTA 
-   drop foreign key FK_PESERTA_RELATIONS_USER;
-
-drop table if exists PESERTA;
-
-
-alter table USER 
-   drop foreign key FK_USER_RELATIONS_USER_LEV;
-
-drop table if exists USER;
-
-drop table if exists USER_LEVEL;
 
 /*==============================================================*/
 /* Table: AMBIL_LOMBA                                           */

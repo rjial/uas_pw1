@@ -23,3 +23,9 @@ $tingkat = [
 $sertifikat = [
     "LSP"
 ];
+
+$akreditass = [
+    "A",
+    "B",
+    "C"
+];

@@ -6,26 +6,29 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     header("Location: login.php");
     // echo "asdasdasd";
 } else {
-    $username = $_SESSION['login'];
-    $query = "SELECT * from user where username='" . $username . "'";
+    $id = $_SESSION['login'];
+    $query = "SELECT * from user where id_user='" . $id . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(2);
+        $username = $stmt->fetchColumn(2);
+        $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
+        $array_level = $query_level->fetchAll()[0];
     } else {
-        header("Location: logout.php");
+        header("Location: /logout.php");
         // echo "asdasdasd";
     }
     if (!empty($_POST) && isset($_POST)) {
-        var_dump($_POST);
+        // var_dump($_POST);
         $namalmb = $_POST['nama-lomba'];
         $jenislmb = $_POST['jenis-lomba'];
         $tngkt = $_POST['tingkat'];
         $hdh = $_POST['hadiah'];
         $srti = $_POST['sertifikat'];
-        $query = $db->prepare("INSERT INTO `lomba` (`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`) VALUES (?, ?, ?, ?, ?, NULL)");
-        $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti]);
+        $ptt = $_POST['pt'];
+        $query = $db->prepare("INSERT INTO `lomba`(`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`, `ID_PERGURUAN_TINGGI`) VALUES (?, ?, ?, ?, ?, NULL, ?)");
+        $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti, $ptt]);
         if ($exec) {
             header("Location: /dashboard/lomba.php");
         }
@@ -36,10 +39,11 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     }
 }
 
-// $query_lomba = "select * from lomba";
-// $stmt_lomba = $db->query($query_lomba);
-// $array_lomba = $stmt_lomba->fetchAll();
-// var_dump($array_lomba);
+$query_pt = "select * from perguruan_tinggi";
+$stmt_pt = $db->query($query_pt);
+$array_pt = $stmt_pt->fetchAll();
+// var_dump($array_pt);
+// die();
 ?>
 
 
@@ -136,6 +140,15 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                             <option value="">Pilih Salah Satu</option>
                             <?php foreach ($sertifikat as $serti) : ?>
                                 <option value="<?php echo $serti; ?>"><?php echo $serti; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pt" class="form-label">Perguruan Tinggi</label>
+                        <select name="pt" id="pt" class="form-select">
+                            <option value="">Pilih Salah Satu</option>
+                            <?php foreach ($array_pt as $perti) : ?>
+                                <option value="<?php echo $perti['ID_PERGURUAN_TINGGI']; ?>"><?php echo $perti["NAMA_PERGURUAN"]; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

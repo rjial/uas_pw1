@@ -23,7 +23,7 @@ if (cek_ada($_POST) || cek_ada($_POST)) {
         if ($stmt->rowCount() > 0) {
             $id = $stmt->fetchColumn(0);
             $_SESSION['login'] = $id;
-            header("Location: index.php");
+            header("Location: /index.php");
         } else {
             array_push($warning, "Username dan password salah");
         }

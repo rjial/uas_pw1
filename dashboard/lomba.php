@@ -3,23 +3,26 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: login.php");
+    header("Location: /login.php");
     // echo "asdasdasd";
 } else {
-    $username = $_SESSION['login'];
-    $query = "SELECT * from user where username='" . $username . "'";
+    $id = $_SESSION['login'];
+    $query = "SELECT * from user where id_user='" . $id . "'";
     $stmt = $db->query($query);
     // var_dump($stmt);
     // die();
     if ($stmt->rowCount() > 0) {
-        $nama = $stmt->fetchColumn(2);
+        $username = $stmt->fetchColumn(2);
+        $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
+        $array_level = $query_level->fetchAll()[0];
+        // var_dump($array_level);
     } else {
-        header("Location: logout.php");
+        header("Location: /logout.php");
         // echo "asdasdasd";
     }
 }
 
-$query_lomba = "select * from lomba";
+$query_lomba = "select * from lomba inner join perguruan_tinggi on lomba.id_perguruan_tinggi = perguruan_tinggi.id_perguruan_tinggi";
 $stmt_lomba = $db->query($query_lomba);
 $array_lomba = $stmt_lomba->fetchAll();
 // var_dump($array_lomba);
@@ -86,7 +89,9 @@ $array_lomba = $stmt_lomba->fetchAll();
         <div class="card">
             <div class="card-body d-flex align-items-center justify-content-between">
                 <h5 class="float-start my-2">Lomba</h5>
-                <a href="/dashboard/tambah_lomba.php" class="btn btn-success flex-end">Tambah</a>
+                <?php if ($array_level['ID_LEVEL'] == 1) : ?>
+                    <a href="/dashboard/tambah_lomba.php" class="btn btn-success flex-end">Tambah</a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="card">
@@ -100,6 +105,7 @@ $array_lomba = $stmt_lomba->fetchAll();
                             <td>Tingkat</td>
                             <td>Hadiah</td>
                             <td>Sertifikat</td>
+                            <td>Universitas</td>
                         </tr>
                     </th>
 
@@ -112,6 +118,7 @@ $array_lomba = $stmt_lomba->fetchAll();
                                 <td><?php echo $lomba["TINGKAT_LOMBA"] ?></td>
                                 <td><?php echo $lomba["HADIAH"] ?></td>
                                 <td><?php echo $lomba["SERTIFIKAT"] ?></td>
+                                <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
