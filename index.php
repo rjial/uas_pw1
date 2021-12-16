@@ -18,6 +18,8 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     // var_dump($stmt);
     if ($stmt->rowCount() > 0) {
         $nama = $stmt->fetchColumn(2);
+        $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
+        $array_level = $query_level->fetchAll()[0];
     } else {
         echo "asdasdasd";
         die();
@@ -28,6 +30,8 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
 $query_lomba = "select * from lomba";
 $stmt_lomba = $db->query($query_lomba);
 $array_lomba = $stmt_lomba->fetchAll();
+// var_dump($array_level['ID_LEVEL']);
+// die();
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +66,12 @@ $array_lomba = $stmt_lomba->fetchAll();
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
+                        <?php if ($array_level['ID_LEVEL'] == 1) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/users.php">User</a>
+                            </li>
+                        <?php endif; ?>
+
                     <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
