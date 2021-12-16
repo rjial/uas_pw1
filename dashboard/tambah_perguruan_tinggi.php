@@ -107,23 +107,25 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         </div>
         <div class="card">
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="nama-perguruan-tinggi" class="form-label">Nama Perguruan Tinggi</label>
-                    <input type="text" name="nama-perguruan-tinggi" id="nama-perguruan-tinggi" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="alamat" class="form-label">Alamat</label>
-                    <textarea name="alamat" id="alamat" rows="6" class="form-control"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="akreditas" class="form-label">Akreditas</label>
-                    <select name="akreditas" id="akreditas" class="form-select">
-                        <?php foreach ($akreditass as $akre) : ?>
-                            <option value="<?php echo $akre; ?>"><?php echo $akre; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary float-end">Tambah</button>
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="nama-perguruan-tinggi" class="form-label">Nama Perguruan Tinggi</label>
+                        <input type="text" name="nama-perguruan-tinggi" id="nama-perguruan-tinggi" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea name="alamat" id="alamat" rows="6" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="akreditas" class="form-label">Akreditas</label>
+                        <select name="akreditas" id="akreditas" class="form-select">
+                            <?php foreach ($akreditass as $akre) : ?>
+                                <option value="<?php echo $akre; ?>"><?php echo $akre; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end">Tambah</button>
+                </form>
             </div>
         </div>
     </div>

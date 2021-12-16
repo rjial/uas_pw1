@@ -91,7 +91,8 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
     <div class="container mt-5 vstack gap-4">
         <div class="card">
             <div class="card-body">
-                <h5>Perguruan Tinggi</h5>
+                <h5 class="float-start">Perguruan Tinggi</h5>
+                <a href="tambah_perguruan_tinggi.php" class="btn btn-success float-end">Tambah</a>
             </div>
         </div>
         <div class="card">
