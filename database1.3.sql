@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     16/12/2021 15:38:43                          */
+/* Created on:     16/12/2021 15:48:57                          */
 /*==============================================================*/
 
 
@@ -19,7 +19,7 @@ create table AMBIL_LOMBA
 /*==============================================================*/
 create table LOMBA
 (
-   NAMA_LOMBA           varchar(30) not null  comment '',
+   NAMA_LOMBA           varchar(100) not null  comment '',
    JENIS_LOMBA          varchar(30) not null  comment '',
    TINGKAT_LOMBA        varchar(30) not null  comment '',
    HADIAH               int not null  comment '',
