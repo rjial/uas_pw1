@@ -29,3 +29,20 @@ $akreditass = [
     "B",
     "C"
 ];
+
+$kelass = [
+    "XII",
+    "XI",
+    "X"
+];
+
+$jurusans = [
+    "Bengkel",
+    "Multimedia",
+    "RPL"
+];
+
+$jeniskels = [
+    "L" => "Laki-Laki",
+    "P" => "Perempuan"
+];

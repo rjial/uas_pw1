@@ -66,6 +66,14 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
                     <li class="nav-item">
                         <a class="nav-link active" href="/dashboard/perguruan_tinggi.php">Perguruan Tinggi</a>
                     </li>
+                    <?php if ($array_level['ID_LEVEL'] == 1) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/users.php">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/user_level.php">User Level</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
