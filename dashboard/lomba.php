@@ -114,20 +114,24 @@ $array_lomba = $stmt_lomba->fetchAll();
                             <td>Hadiah</td>
                             <td>Sertifikat</td>
                             <td>Universitas</td>
+                            <td>Action</td>
                         </tr>
                     </th>
 
                     <tbody>
+                        <?php $ids = 1 ?>
                         <?php foreach ($array_lomba as $lomba) : ?>
                             <tr>
-                                <td><?php echo $lomba["ID_LOMBA"] ?></td>
+                                <td><?php echo $ids ?></td>
                                 <td><?php echo $lomba["NAMA_LOMBA"] ?></td>
                                 <td><?php echo $lomba["JENIS_LOMBA"] ?></td>
                                 <td><?php echo $lomba["TINGKAT_LOMBA"] ?></td>
                                 <td><?php echo $lomba["HADIAH"] ?></td>
                                 <td><?php echo $lomba["SERTIFIKAT"] ?></td>
                                 <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
+                                <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Edit</a></td>
                             </tr>
+                            <?php $ids++ ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
