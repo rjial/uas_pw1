@@ -3,7 +3,7 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: login.php");
+    header("Location: /login.php");
     // echo "asdasdasd";
 } else {
     $id = $_SESSION['login'];
@@ -19,11 +19,30 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         header("Location: /logout.php");
         // echo "asdasdasd";
     }
+    $id_pt = $_GET['id'];
+    if ($id_pt > 0 || $id_pt != null) {
+        $query_pt = $db->query("SELECT * FROM `perguruan_tinggi` WHERE `ID_PERGURUAN_TINGGI` = " . $id);
+        $array_pt = $query_pt->fetchAll()[0];
+        var_dump($array_pt);
+        // die();
+    } else {
+        header("Location: /dashboard/perguruan_tinggi.php");
+    }
+    if (!empty($_POST) && isset($_POST)) {
+        $nama_univ = $_POST['nama-perguruan-tinggi'];
+        $alamat = $_POST['alamat'];
+        $akred = $_POST['akreditas'];
+        $query = $db->prepare("UPDATE `perguruan_tinggi` SET `NAMA_PERGURUAN`=?,`ALAMAT`=?,`AKREDITAS`=? WHERE `ID_PERGURUAN_TINGGI` = " . $id_pt);
+        $exec = $query->execute([$nama_univ, $alamat, $akred]);
+        if ($exec) {
+            header("Location: perguruan_tinggi.php");
+        }
+    }
 }
 
-$query_perguruan_tinggi = "select * from perguruan_tinggi";
-$stmt_perguruan_tinggi = $db->query($query_perguruan_tinggi);
-$array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
+// $query_perguruan_tinggi = "select * from perguruan_tinggi";
+// $stmt_perguruan_tinggi = $db->query($query_perguruan_tinggi);
+// $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
 // var_dump($array_lomba);
 ?>
 
@@ -98,36 +117,31 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
     </nav>
     <div class="container mt-5 vstack gap-4">
         <div class="card">
-            <div class="card-body">
-                <h5 class="float-start">Perguruan Tinggi</h5>
-                <a href="tambah_perguruan_tinggi.php" class="btn btn-success float-end">Tambah</a>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <h5 class="py-1">Tambah Perguruan Tinggi</h5>
             </div>
         </div>
         <div class="card">
             <div class="card-body">
-                <table class="table">
-                    <th>
-                        <tr>
-                            <td>No</td>
-                            <td>Nama</td>
-                            <td>Alamat</td>
-                            <td>Akreditas</td>
-                            <td>Action</td>
-                        </tr>
-                    </th>
-
-                    <tbody>
-                        <?php foreach ($array_perguruan_tinggi as $perguruan_tinggi) : ?>
-                            <tr>
-                                <td><?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?></td>
-                                <td><?php echo $perguruan_tinggi["NAMA_PERGURUAN"] ?></td>
-                                <td><?php echo $perguruan_tinggi["ALAMAT"] ?></td>
-                                <td><?php echo $perguruan_tinggi["AKREDITAS"] ?></td>
-                                <td><a href="edit_perguruan_tinggi.php?id=<?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?>" class="btn btn-primary">Edit</a></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="nama-perguruan-tinggi" class="form-label">Nama Perguruan Tinggi</label>
+                        <input type="text" name="nama-perguruan-tinggi" id="nama-perguruan-tinggi" class="form-control" value="<?php echo $array_pt["NAMA_PERGURUAN"] ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea name="alamat" id="alamat" rows="6" class="form-control"><?php echo $array_pt["ALAMAT"] ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="akreditas" class="form-label">Akreditas</label>
+                        <select name="akreditas" id="akreditas" class="form-select">
+                            <?php foreach ($akreditass as $akre) : ?>
+                                <option <?php echo ($akre == $array_pt[2]) ? "selected" : "" ?> value="<?php echo $akre; ?>"><?php echo $akre; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end">Tambah</button>
+                </form>
             </div>
         </div>
     </div>
