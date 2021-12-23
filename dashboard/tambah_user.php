@@ -87,14 +87,14 @@ $array_users = $stmt_users->fetchAll();
                         <a class="nav-link" href="/dashboard/lomba.php">Lomba</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/dashboard/peserta.php">Peserta</a>
+                        <a class="nav-link" href="/dashboard/peserta.php">Peserta</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard/perguruan_tinggi.php">Perguruan Tinggi</a>
                     </li>
                     <?php if ($array_level['ID_LEVEL'] == 1) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard/users.php">User</a>
+                            <a class="nav-link active" href="/dashboard/users.php">User</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard/user_level.php">User Level</a>
