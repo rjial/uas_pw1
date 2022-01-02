@@ -26,7 +26,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         if ($query_lomba->rowCount() > 0) {
             $query_psrt = $db->query("select * from peserta where ID_USER=" . $id);
             $array_psrt = $query_psrt->fetchAll()[0];
-            $sql_ikutilomba = "INSERT INTO `ambil_lomba` (`ID_PESERTA`, `ID_LOMBA`) VALUES ('" . $array_psrt["ID_PESERTA"] . "', '" . $id_lomba . "')";
+            $sql_ikutilomba = "DELETE FROM `ambil_lomba` where `ID_PESERTA`='" . $array_psrt["ID_PESERTA"] . "' and `ID_LOMBA`='" . $id_lomba . "'";
             $query_ikutilomba = $db->exec($sql_ikutilomba);
             if ($query_ikutilomba) {
                 header("Location: " . base_urll("dashboard/"));

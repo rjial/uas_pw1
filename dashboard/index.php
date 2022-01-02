@@ -21,7 +21,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
     }
-    $query_lomba = "select * from ambil_lomba inner join lomba on ambil_lomba.id_lomba inner join peserta on ambil_lomba.id_peserta = peserta.id_peserta";
+    $query_lomba = "select * from ambil_lomba inner join lomba on ambil_lomba.id_lomba inner join peserta on ambil_lomba.id_peserta = peserta.id_peserta inner join perguruan_tinggi on lomba.id_perguruan_tinggi = perguruan_tinggi.id_perguruan_tinggi";
     $stmt_lomba = $db->query($query_lomba);
     $array_lomba = $stmt_lomba->fetchAll();
 }
@@ -128,7 +128,11 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                                     <td><?php echo $lomba["SERTIFIKAT"] ?></td>
                                     <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
                                     <?php if ($array_level["ID_LEVEL"] == 2) : ?>
-                                        <td><a href="ikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                                        <?php if (pernah_lomba($id, $lomba["ID_LOMBA"])) : ?>
+                                            <td><a href="tdkikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger">Tidak Ikuti</a></td>
+                                        <?php else : ?>
+                                            <td><a href="ikuti_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                                        <?php endif ?>
                                     <?php endif ?>
                                 </tr>
                                 <?php $ids++ ?>

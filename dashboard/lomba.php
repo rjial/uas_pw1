@@ -132,7 +132,11 @@ $array_lomba = $stmt_lomba->fetchAll();
                                 <?php if ($array_level["ID_LEVEL"] == 1) : ?>
                                     <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger me-3">Hapus</a></td>
                                 <?php elseif ($array_level["ID_LEVEL"] == 2) : ?>
-                                    <td><a href="ikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                                    <?php if (pernah_lomba($id, $lomba["ID_LOMBA"])) : ?>
+                                        <td><a href="tdkikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger">Tidak Ikuti</a></td>
+                                    <?php else : ?>
+                                        <td><a href="ikuti_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                                    <?php endif ?>
                                 <?php endif ?>
                             </tr>
                             <?php $ids++ ?>
