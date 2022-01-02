@@ -110,7 +110,9 @@ $array_peserta = $stmt_peserta->fetchAll();
                             <td>Jenis Kelamin</td>
                             <td>Jurusan</td>
                             <td>Alamat</td>
-                            <td>Action</td>
+                            <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                                <td>Action</td>
+                            <?php endif ?>
                         </tr>
                     </th>
 
@@ -130,7 +132,9 @@ $array_peserta = $stmt_peserta->fetchAll();
                                 <?php endif; ?>
                                 <td><?php echo $peserta["JURUSAN"] ?></td>
                                 <td><?php echo $peserta["ALAMAR"] ?></td>
-                                <td><a href="edit_user.php?id=<?php echo $peserta["ID_USER"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_user.php?id=<?php echo $peserta["ID_USER"] ?>" class="btn btn-danger">Hapus</a></td>
+                                <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                                    <td><a href="edit_user.php?id=<?php echo $peserta["ID_USER"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_user.php?id=<?php echo $peserta["ID_USER"] ?>" class="btn btn-danger">Hapus</a></td>
+                                <?php endif ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

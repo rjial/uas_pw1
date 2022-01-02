@@ -100,7 +100,9 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
         <div class="card">
             <div class="card-body">
                 <h5 class="float-start">Perguruan Tinggi</h5>
-                <a href="tambah_perguruan_tinggi.php" class="btn btn-success float-end">Tambah</a>
+                <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                    <a href="tambah_perguruan_tinggi.php" class="btn btn-success float-end">Tambah</a>
+                <?php endif ?>
             </div>
         </div>
         <div class="card">
@@ -112,7 +114,9 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
                             <td>Nama</td>
                             <td>Alamat</td>
                             <td>Akreditas</td>
-                            <td>Action</td>
+                            <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                                <td>Action</td>
+                            <?php endif ?>
                         </tr>
                     </th>
 
@@ -123,7 +127,9 @@ $array_perguruan_tinggi = $stmt_perguruan_tinggi->fetchAll();
                                 <td><?php echo $perguruan_tinggi["NAMA_PERGURUAN"] ?></td>
                                 <td><?php echo $perguruan_tinggi["ALAMAT"] ?></td>
                                 <td><?php echo $perguruan_tinggi["AKREDITAS"] ?></td>
-                                <td><a href="edit_perguruan_tinggi.php?id=<?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_perguruan_tinggi.php?id=<?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?>" class="btn btn-danger me-3">Hapus</a></td>
+                                <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                                    <td><a href="edit_perguruan_tinggi.php?id=<?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_perguruan_tinggi.php?id=<?php echo $perguruan_tinggi["ID_PERGURUAN_TINGGI"] ?>" class="btn btn-danger me-3">Hapus</a></td>
+                                <?php endif ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

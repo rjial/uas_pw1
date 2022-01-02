@@ -31,8 +31,6 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                     if ($query_psrthps) {
                     }
                 }
-
-                // var_dump($array_psrt);
             }
             $query_userhps = $db->exec("DELETE FROM `user` WHERE ID_USER=" . $id_user);
             if ($query_userhps) {

@@ -129,7 +129,11 @@ $array_lomba = $stmt_lomba->fetchAll();
                                 <td><?php echo $lomba["HADIAH"] ?></td>
                                 <td><?php echo $lomba["SERTIFIKAT"] ?></td>
                                 <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
-                                <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger me-3">Hapus</a></td>
+                                <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                                    <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger me-3">Hapus</a></td>
+                                <?php elseif ($array_level["ID_LEVEL"] == 2) : ?>
+                                    <td><a href="ikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                                <?php endif ?>
                             </tr>
                             <?php $ids++ ?>
                         <?php endforeach; ?>
