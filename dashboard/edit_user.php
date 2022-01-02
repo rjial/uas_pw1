@@ -211,7 +211,7 @@ $array_levels = $stmt_levels->fetchAll();
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-primary float-end">Tambah</button>
+                        <button type="submit" class="btn btn-primary float-end">Edit</button>
                     </div>
                 </form>
             </div>

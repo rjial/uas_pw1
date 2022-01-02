@@ -3,7 +3,7 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: " . base_urll("") . "login.php");
+    header("Location: " . base_urll("login.php"));
     // echo "asdasdasd";
 } else {
     $id = $_SESSION['login'];
@@ -16,7 +16,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
         $array_level = $query_level->fetchAll()[0];
     } else {
-        header("Location: " . base_urll("") . "logout.php");
+        header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
     }
     if (!empty($_POST) && isset($_POST)) {
@@ -30,7 +30,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query = $db->prepare("INSERT INTO `lomba`(`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`, `ID_PERGURUAN_TINGGI`) VALUES (?, ?, ?, ?, ?, NULL, ?)");
         $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti, $ptt]);
         if ($exec) {
-            header("Location: " . base_urll("") . "dashboard/lomba.php");
+            header("Location: " . base_urll("dashboard/lomba.php"));
         }
         // foreach ($_POST as $data) {
         //     echo $data;

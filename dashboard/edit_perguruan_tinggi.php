@@ -21,7 +21,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     }
     $id_pt = $_GET['id'];
     if ($id_pt > 0 || $id_pt != null) {
-        $query_pt = $db->query("SELECT * FROM `perguruan_tinggi` WHERE `ID_PERGURUAN_TINGGI` = " . $id);
+        $query_pt = $db->query("SELECT * FROM `perguruan_tinggi` WHERE `ID_PERGURUAN_TINGGI` = " . $id_pt);
         $array_pt = $query_pt->fetchAll()[0];
         // var_dump($array_pt);
         // die();
@@ -140,7 +140,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary float-end">Tambah</button>
+                    <button type="submit" class="btn btn-primary float-end">Edit</button>
                 </form>
             </div>
         </div>

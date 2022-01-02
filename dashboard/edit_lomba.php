@@ -19,7 +19,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     }
     $id_lomba = $_GET['id'];
     if ($id_lomba > 0 || $id_lomba != null) {
-        $query_lomba = $db->query("SELECT * FROM `lomba` WHERE ID_LOMBA=" . $id);
+        $query_lomba = $db->query("SELECT * FROM `lomba` WHERE ID_LOMBA=" . $id_lomba);
         $array_lomba = $query_lomba->fetchAll()[0];
         // var_dump($array_lomba);
         // die();
