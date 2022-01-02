@@ -56,23 +56,23 @@ $array_lomba = $stmt_lomba->fetchAll();
                 <a class="navbar-brand" href="../">Lomba</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
+                        <a class="nav-link" aria-current="page" href="<?php echo base_urll("dashboard/") ?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/dashboard/lomba.php">Lomba</a>
+                        <a class="nav-link active" href="<?php echo base_urll("dashboard/") ?>lomba.php">Lomba</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/peserta.php">Peserta</a>
+                        <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>peserta.php">Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard/perguruan_tinggi.php">Perguruan Tinggi</a>
+                        <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>perguruan_tinggi.php">Perguruan Tinggi</a>
                     </li>
                     <?php if ($array_level['ID_LEVEL'] == 1) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard/users.php">User</a>
+                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>users.php">User</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard/user_level.php">User Level</a>
+                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>user_level.php">User Level</a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -82,7 +82,7 @@ $array_lomba = $stmt_lomba->fetchAll();
                             <?php echo $username; ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="<?php echo base_urll("dashboard/") ?>">Dashboard</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

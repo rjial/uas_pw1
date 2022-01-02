@@ -64,11 +64,11 @@ $array_lomba = $stmt_lomba->fetchAll();
                     </li>
                     <?php if (!$belum_login) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>">Dashboard</a>
                         </li>
                         <?php if ($array_level['ID_LEVEL'] == 1) : ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="/dashboard/users.php">User</a>
+                                <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>users.php">User</a>
                             </li>
                         <?php endif; ?>
 
@@ -90,15 +90,15 @@ $array_lomba = $stmt_lomba->fetchAll();
                         </li>
                     <?php else : ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="<?php echo base_urll("index.php") ?>" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo $nama; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_urll("dashboard/") ?>">Dashboard</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                                <li><a class="dropdown-item" href="<?php echo base_urll("logout.php") ?>">Logout</a></li>
                             </ul>
                         </li>
                     <?php endif; ?>

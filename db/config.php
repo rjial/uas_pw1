@@ -10,6 +10,13 @@ try {
     echo "Connection error: " . $exception->getMessage();
 }
 
+$base_url = "http://localhost/uas_pw1/";
+function base_urll($url)
+{
+    global $base_url;
+    return $base_url . $url;
+}
+
 $jenis_lomba = [
     "Robotik",
     "Web"
