@@ -3,7 +3,7 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: login.php");
+    header("Location: " . base_urll("") . "login.php");
     // echo "asdasdasd";
 } else {
     $id = $_SESSION['login'];
@@ -16,7 +16,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
         $array_level = $query_level->fetchAll()[0];
     } else {
-        header("Location: /logout.php");
+        header("Location: " . base_urll("") . "logout.php");
         // echo "asdasdasd";
     }
     if (!empty($_POST) && isset($_POST)) {
@@ -30,7 +30,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query = $db->prepare("INSERT INTO `lomba`(`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`, `ID_PERGURUAN_TINGGI`) VALUES (?, ?, ?, ?, ?, NULL, ?)");
         $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti, $ptt]);
         if ($exec) {
-            header("Location: /dashboard/lomba.php");
+            header("Location: " . base_urll("") . "dashboard/lomba.php");
         }
         // foreach ($_POST as $data) {
         //     echo $data;
@@ -77,20 +77,20 @@ $array_pt = $stmt_pt->fetchAll();
                         <a class="nav-link" aria-current="page" href="<?php echo base_urll("dashboard/") ?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo base_urll("dashboard/") ?>/lomba.php">Lomba</a>
+                        <a class="nav-link active" href="<?php echo base_urll("dashboard/") ?>lomba.php">Lomba</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>/peserta.php">Peserta</a>
+                        <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>peserta.php">Peserta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>/perguruan_tinggi.php">Perguruan Tinggi</a>
+                        <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>perguruan_tinggi.php">Perguruan Tinggi</a>
                     </li>
                     <?php if ($array_level['ID_LEVEL'] == 1) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>/users.php">User</a>
+                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>users.php">User</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>/user_level.php">User Level</a>
+                            <a class="nav-link" href="<?php echo base_urll("dashboard/") ?>user_level.php">User Level</a>
                         </li>
                     <?php endif; ?>
                 </ul>

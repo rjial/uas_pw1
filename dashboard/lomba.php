@@ -3,7 +3,7 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: /login.php");
+    header("Location: " . base_urll("login.php"));
     // echo "asdasdasd";
 } else {
     $id = $_SESSION['login'];
@@ -17,7 +17,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $array_level = $query_level->fetchAll()[0];
         // var_dump($array_level);
     } else {
-        header("Location: /logout.php");
+        header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
     }
 }
@@ -129,7 +129,7 @@ $array_lomba = $stmt_lomba->fetchAll();
                                 <td><?php echo $lomba["HADIAH"] ?></td>
                                 <td><?php echo $lomba["SERTIFIKAT"] ?></td>
                                 <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
-                                <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Edit</a></td>
+                                <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger me-3">Hapus</a></td>
                             </tr>
                             <?php $ids++ ?>
                         <?php endforeach; ?>

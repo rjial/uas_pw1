@@ -23,7 +23,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     } else {
         echo "asdasdasd";
         die();
-        header("Location: /logout.php");
+        header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
     }
 }

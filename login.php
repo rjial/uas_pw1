@@ -9,7 +9,7 @@ function cek_ada($field)
 }
 $warning = array();
 if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
-    header("Location: index.php");
+    header("Location: " . base_urll("index.php"));
 }
 if (cek_ada($_POST) || cek_ada($_POST)) {
     if (cek_ada($_POST['username_login']) && cek_ada($_POST['password_login'])) {
@@ -23,7 +23,7 @@ if (cek_ada($_POST) || cek_ada($_POST)) {
         if ($stmt->rowCount() > 0) {
             $id = $stmt->fetchColumn(0);
             $_SESSION['login'] = $id;
-            header("Location: index.php");
+            header("Location: " . base_urll("index.php"));
         } else {
             array_push($warning, "Username dan password salah");
         }

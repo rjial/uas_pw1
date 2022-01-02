@@ -3,7 +3,7 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: /login.php");
+    header("Location: " . base_urll("login.php"));
     // echo "asdasdasd";
 } else {
     $id = $_SESSION['login'];
@@ -16,17 +16,17 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
         $array_level = $query_level->fetchAll()[0];
     } else {
-        header("Location: /logout.php");
+        header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
     }
     $id_pt = $_GET['id'];
     if ($id_pt > 0 || $id_pt != null) {
         $query_pt = $db->query("SELECT * FROM `perguruan_tinggi` WHERE `ID_PERGURUAN_TINGGI` = " . $id);
         $array_pt = $query_pt->fetchAll()[0];
-        var_dump($array_pt);
+        // var_dump($array_pt);
         // die();
     } else {
-        header("Location: /dashboard/perguruan_tinggi.php");
+        header("Location: " . base_urll("dashboard/perguruan_tinggi.php"));
     }
     if (!empty($_POST) && isset($_POST)) {
         $nama_univ = $_POST['nama-perguruan-tinggi'];
@@ -35,7 +35,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query = $db->prepare("UPDATE `perguruan_tinggi` SET `NAMA_PERGURUAN`=?,`ALAMAT`=?,`AKREDITAS`=? WHERE `ID_PERGURUAN_TINGGI` = " . $id_pt);
         $exec = $query->execute([$nama_univ, $alamat, $akred]);
         if ($exec) {
-            header("Location: perguruan_tinggi.php");
+            header("Location: " . base_urll("dashboard/perguruan_tinggi.php"));
         }
     }
 }

@@ -3,7 +3,7 @@ require("../db/config.php");
 session_start();
 
 if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
-    header("Location: /login.php");
+    header("Location: " . base_urll("login.php"));
     // echo "asdasdasd";
 } else {
     $id = $_SESSION['login'];
@@ -16,29 +16,42 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
         $array_level = $query_level->fetchAll()[0];
     } else {
-        header("Location: /logout.php");
+        header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
     }
     $id_user = $_GET['id'];
     if ($id_user > 0 || $id_user != null) {
         $query_user = $db->query("SELECT * FROM `user` WHERE ID_USER=" . $id_user);
         $array_user = $query_user->fetchAll()[0];
-        var_dump($array_user);
+        // var_dump($array_user);
+        if ($array_user["ID_LEVEL"] == 2) {
+            $query_psrt = $db->query("select * from peserta where ID_USER='" . $array_user["ID_USER"] . "'");
+            $array_psrt = $query_psrt->fetchAll()[0];
+            // var_dump($array_psrt);
+        }
         // die();
     } else {
-        header("Location: /dashboard/users.php");
+        header("Location: " . base_urll("dashboard/users.php"));
     }
     if (!empty($_POST) && isset($_POST)) {
+        echo "<pre>";
         var_dump($_POST);
+        echo "</pre>";
+        // die();
         $user_name = $_POST['username'];
-        $pass_word = $_POST['password'];
+        // $pass_word = $_POST['password'];
         $levell = $_POST['level'];
-        if (isset($pass_word)) {
-            $query = $db->prepare("UPDATE `user` SET `ID_LEVEL`='" . $levell . "',`USERNAME`='" . $username . "',`PASSWORD`='" . md5($pass_word) . "' WHERE ID_USER='" . $id_user);
+        if (isset($_POST["password"])) {
+            // echo "asdasdasd";
+            $pass_word = $_POST["password"];
+            $query = $db->prepare("UPDATE `user` SET `ID_LEVEL`='" . $levell . "',`USERNAME`='" . $user_name . "',`PASSWORD`='" . md5($pass_word) . "' WHERE ID_USER='" . $id_user . "'");
+            var_dump($query);
+            $exec = $query->execute();
         } else {
-            $query = $db->prepare("UPDATE `user` SET `ID_LEVEL`='" . $levell . "',`USERNAME`='" . $username . "' WHERE ID_USER='" . $id_user);
+            $query = $db->prepare("UPDATE `user` SET `ID_LEVEL`='" . $levell . "',`USERNAME`='" . $user_name . "' WHERE ID_USER='" . $id_user . "'");
+            var_dump($query);
+            $exec = $query->execute();
         }
-        $exec = $query->execute();
         // $last_user = $db->lastInsertId();
         if ($exec) {
             if ($levell == 2) {
@@ -51,10 +64,10 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 $query_peserta = $db->prepare("UPDATE `peserta` SET `NAMA`=?,`KELAS`=?,`ASAL`=?,`JENIS_KELAMIN`=?,`JURUSAN`=?,`ALAMAR`=? WHERE ID_USER=?");
                 $exec_peserta = $query_peserta->execute([$nama_peserta, $kelas, $asal, $jenis_kelamin, $jurusan, $alamat, $id_user]);
                 if ($exec_peserta) {
-                    header("Location: /dashboard/users.php");
+                    header("Location: " . base_urll("dashboard/users.php"));
                 }
             } else {
-                header("Location: /dashboard/users.php");
+                header("Location: " . base_urll("dashboard/users.php"));
             }
         }
     }
@@ -63,6 +76,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
 // $query_users = "select user.*, user_level.nama_level from user inner join user_level on user.id_level = user_level.id_level";
 // $stmt_users = $db->query($query_users);
 // $array_users = $stmt_users->fetchAll();
+$query_levels = "select * from user_level";
+$stmt_levels = $db->query($query_levels);
+$array_levels = $stmt_levels->fetchAll();
 // var_dump($array_lomba);
 ?>
 
@@ -137,7 +153,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 <form action="" method="post">
                     <div class="mb-3">
                         <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control">
+                        <input type="text" name="username" id="username" class="form-control" value="<?php echo $array_user['USERNAME'] ?>">
                     </div>
                     <div class="mb-3">
                         <label for="password">Password</label>
@@ -147,14 +163,15 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                         <label for="level">Level</label>
                         <select onchange="get_select()" name="level" id="level" class="form-control">
                             <option value="">Pilih Salah Satu</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Peserta</option>
+                            <?php foreach ($array_levels as $lvl) : ?>
+                                <option <?php echo ($lvl["ID_LEVEL"] == $array_user["ID_LEVEL"]) ? "selected" : "" ?> value="<?php echo $lvl["ID_LEVEL"] ?>"><?php echo $lvl["NAMA_LEVEL"] ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="peserta d-none" id="peserta">
                         <div class="mb-3">
                             <label for="nama_peserta">Nama</label>
-                            <input type="text" name="nama_peserta" id="nama_peserta" class="form-control">
+                            <input type="text" name="nama_peserta" id="nama_peserta" class="form-control" value="<?php echo (isset($array_psrt)) ? $array_psrt['NAMA'] : "" ?>">
                         </div>
                         <div class="mb-3">
                             <label for="kelas">Kelas</label>
@@ -162,20 +179,20 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                             <select name="kelas" id="kelas" class="form-control">
                                 <option value="">Pilih Salah Satu</option>
                                 <?php foreach ($kelass as $kelas) : ?>
-                                    <option value="<?php echo $kelas ?>"><?php echo $kelas ?></option>
+                                    <option <?php echo (isset($array_psrt)) ? (($kelas == $array_psrt["KELAS"]) ? "selected" : "") : "" ?> value="<?php echo $kelas ?>"><?php echo $kelas ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="asal">Asal</label>
-                            <input type="text" name="asal" id="asal" class="form-control">
+                            <input type="text" name="asal" id="asal" class="form-control" value="<?php echo (isset($array_psrt)) ? $array_psrt["ASAL"] : "" ?>">
                         </div>
                         <div class="mb-3">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <select name="jeniskelamin" id="jeniskelamin" class="form-control">
                                 <option value="">Pilih Salah Satu</option>
                                 <?php foreach ($jeniskels as $jk => $jeniskel) : ?>
-                                    <option value="<?php echo $jk ?>"><?php echo $jeniskel ?></option>
+                                    <option <?php echo (isset($array_psrt)) ? (($jk == $array_psrt["JENIS_KELAMIN"]) ? "selected" : "") : "" ?> value="<?php echo $jk ?>"><?php echo $jeniskel ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -184,13 +201,13 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                             <select name="jurusan" id="jurusan" class="form-control">
                                 <option value="">Pilih Salah Satu</option>
                                 <?php foreach ($jurusans as $jurusan) : ?>
-                                    <option value="<?php echo $jurusan ?>"><?php echo $jurusan ?></option>
+                                    <option <?php echo (isset($array_psrt)) ? (($jurusan == $array_psrt["JURUSAN"]) ? "selected" : "") : "" ?> value="<?php echo $jurusan ?>"><?php echo $jurusan ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="alamat">Alamat</label>
-                            <textarea name="alamat" id="alamat" rows="5" class="form-control"></textarea>
+                            <textarea name="alamat" id="alamat" rows="5" class="form-control"><?php echo (isset($array_psrt)) ? $array_psrt["ALAMAR"] : "" ?></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
