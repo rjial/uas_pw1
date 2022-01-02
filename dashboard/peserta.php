@@ -21,7 +21,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     }
 }
 
-$query_peserta = "select * from peserta";
+$query_peserta = "select *, user.id_level from peserta inner join user on peserta.id_user = user.id_user";
 $stmt_peserta = $db->query($query_peserta);
 $array_peserta = $stmt_peserta->fetchAll();
 // var_dump($array_lomba);
@@ -110,13 +110,16 @@ $array_peserta = $stmt_peserta->fetchAll();
                             <td>Jenis Kelamin</td>
                             <td>Jurusan</td>
                             <td>Alamat</td>
+                            <td>Action</td>
                         </tr>
                     </th>
 
                     <tbody>
+                        <?php $id = 0 ?>
                         <?php foreach ($array_peserta as $peserta) : ?>
+                            <?php $id++ ?>
                             <tr>
-                                <td><?php echo $peserta["ID_PESERTA"] ?></td>
+                                <td><?php echo $id ?></td>
                                 <td><?php echo $peserta["NAMA"] ?></td>
                                 <td><?php echo $peserta["KELAS"] ?></td>
                                 <td><?php echo $peserta["ASAL"] ?></td>
@@ -127,6 +130,7 @@ $array_peserta = $stmt_peserta->fetchAll();
                                 <?php endif; ?>
                                 <td><?php echo $peserta["JURUSAN"] ?></td>
                                 <td><?php echo $peserta["ALAMAR"] ?></td>
+                                <td><a href="edit_user.php?id=<?php echo $peserta["ID_USER"] ?>" class="btn btn-primary">Edit</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

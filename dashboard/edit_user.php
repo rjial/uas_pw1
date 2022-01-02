@@ -19,14 +19,27 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         header("Location: /logout.php");
         // echo "asdasdasd";
     }
+    $id_user = $_GET['id'];
+    if ($id_user > 0 || $id_user != null) {
+        $query_user = $db->query("SELECT * FROM `user` WHERE ID_USER=" . $id_user);
+        $array_user = $query_user->fetchAll()[0];
+        var_dump($array_user);
+        // die();
+    } else {
+        header("Location: /dashboard/users.php");
+    }
     if (!empty($_POST) && isset($_POST)) {
         var_dump($_POST);
         $user_name = $_POST['username'];
         $pass_word = $_POST['password'];
         $levell = $_POST['level'];
-        $query = $db->prepare("INSERT INTO `user`(`ID_USER`, `ID_LEVEL`, `USERNAME`, `PASSWORD`) VALUES (NULL, ?,?,?)");
-        $exec = $query->execute([$levell, $user_name, md5($pass_word)]);
-        $last_user = $db->lastInsertId();
+        if (isset($pass_word)) {
+            $query = $db->prepare("UPDATE `user` SET `ID_LEVEL`='" . $levell . "',`USERNAME`='" . $username . "',`PASSWORD`='" . md5($pass_word) . "' WHERE ID_USER='" . $id_user);
+        } else {
+            $query = $db->prepare("UPDATE `user` SET `ID_LEVEL`='" . $levell . "',`USERNAME`='" . $username . "' WHERE ID_USER='" . $id_user);
+        }
+        $exec = $query->execute();
+        // $last_user = $db->lastInsertId();
         if ($exec) {
             if ($levell == 2) {
                 $nama_peserta = $_POST['nama_peserta'];
@@ -35,8 +48,8 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 $jenis_kelamin = $_POST['jeniskelamin'];
                 $jurusan = $_POST['jurusan'];
                 $alamat = $_POST['alamat'];
-                $query_peserta = $db->prepare("INSERT INTO `peserta`(`NAMA`, `KELAS`, `ASAL`, `JENIS_KELAMIN`, `JURUSAN`, `ALAMAR`, `ID_PESERTA`, `ID_USER`) VALUES (?,?,?,?,?,?,NULL,?)");
-                $exec_peserta = $query_peserta->execute([$nama_peserta, $kelas, $asal, $jenis_kelamin, $jurusan, $alamat, $last_user]);
+                $query_peserta = $db->prepare("UPDATE `peserta` SET `NAMA`=?,`KELAS`=?,`ASAL`=?,`JENIS_KELAMIN`=?,`JURUSAN`=?,`ALAMAR`=? WHERE ID_USER=?");
+                $exec_peserta = $query_peserta->execute([$nama_peserta, $kelas, $asal, $jenis_kelamin, $jurusan, $alamat, $id_user]);
                 if ($exec_peserta) {
                     header("Location: /dashboard/users.php");
                 }
@@ -47,9 +60,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     }
 }
 
-$query_users = "select user.*, user_level.nama_level from user inner join user_level on user.id_level = user_level.id_level";
-$stmt_users = $db->query($query_users);
-$array_users = $stmt_users->fetchAll();
+// $query_users = "select user.*, user_level.nama_level from user inner join user_level on user.id_level = user_level.id_level";
+// $stmt_users = $db->query($query_users);
+// $array_users = $stmt_users->fetchAll();
 // var_dump($array_lomba);
 ?>
 

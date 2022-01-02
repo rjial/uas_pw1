@@ -112,12 +112,14 @@ $array_users = $stmt_users->fetchAll();
                     </th>
 
                     <tbody>
+                        <?php $id = 0 ?>
                         <?php foreach ($array_users as $users) : ?>
+                            <?php $id++ ?>
                             <tr>
-                                <td><?php echo $users["ID_USER"] ?></td>
+                                <td><?php echo $id ?></td>
                                 <td><?php echo $users["USERNAME"] ?></td>
                                 <td><?php echo $users["nama_level"] ?></td>
-                                <td><a href="#" class="btn btn-primary">Edit</a></td>
+                                <td><a href="edit_user.php?id=<?php echo $users["ID_USER"] ?>" class="btn btn-primary mr-3">Edit</a><a href="hapus_user.php?id=<?php echo $users["ID_USER"] ?>" class="btn btn-danger">Hapus</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
