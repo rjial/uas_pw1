@@ -57,10 +57,10 @@ $array_lomba = $stmt_lomba->fetchAll();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="/">Lomba</a>
+                <a class="navbar-brand" href="<?php echo base_urll("") ?>">Lomba</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="<?php echo base_urll("") ?>">Home</a>
                     </li>
                     <?php if (!$belum_login) : ?>
                         <li class="nav-item">
