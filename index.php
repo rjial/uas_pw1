@@ -111,6 +111,10 @@ $array_lomba = $stmt_lomba->fetchAll();
         <div class="card">
             <div class="card-body">
                 <h1 class="text-center">Selamat Datang di Lomba!</h1>
+                <ul>
+                    <li>Derajat A'lim Perdana (201111017)</li>
+                    <li>Rizal Abdul Basith (201111027)</li>
+                </ul>
             </div>
         </div>
         <div class="card">
