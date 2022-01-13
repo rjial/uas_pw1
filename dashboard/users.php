@@ -96,7 +96,7 @@ $array_users = $stmt_users->fetchAll();
         <div class="card">
             <div class="card-body">
                 <h5 class="float-start py-1">Users</h5>
-                <a href="/dashboard/tambah_user.php" class="btn btn-success float-end">Tambah</a>
+                <a href="<?php echo base_urll("dashboard/tambah_user.php") ?>" class="btn btn-success float-end">Tambah</a>
             </div>
         </div>
         <div class="card">

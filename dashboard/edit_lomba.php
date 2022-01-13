@@ -35,11 +35,17 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $srti = $_POST['sertifikat'];
         $ptt = $_POST['pt'];
         $query_edit = "UPDATE lomba SET NAMA_LOMBA=?,JENIS_LOMBA=?,TINGKAT_LOMBA=?,HADIAH=?,SERTIFIKAT=?,ID_PERGURUAN_TINGGI=? WHERE ID_LOMBA=" . $id_lomba;
-        echo $query_edit;
-        var_dump($_POST);
+        // echo $query_edit;
+        // var_dump($_POST);
         // die();
         $query = $db->prepare($query_edit);
-        $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti, $ptt]);
+        $query->bindParam(1, $namalmb);
+        $query->bindParam(2, $jenislmb);
+        $query->bindParam(3, $tngkt);
+        $query->bindParam(4, $hdh);
+        $query->bindParam(5, $srti);
+        $query->bindParam(6, $ptt);
+        $exec = $query->execute();
         if ($exec) {
             header("Location: " . base_urll("dashboard/lomba.php"));
         }

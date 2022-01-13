@@ -21,7 +21,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
     if ($id_lomba > 0 || $id_lomba != null) {
         $query_lomba = $db->query("SELECT * FROM `lomba` WHERE ID_LOMBA=" . $id_lomba);
         if ($query_lomba->rowCount() > 0) {
-            $query_lombahps = $db->exec("DELETE FROM 'lomba' WHERE ID_LOMBA=" . $id_lomba);
+            $query_lombahps = $db->exec("DELETE FROM `lomba` WHERE ID_LOMBA=" . $id_lomba);
             if ($query_lombahps) {
                 header("Location: " . base_urll("dashboard/lomba.php"));
             }

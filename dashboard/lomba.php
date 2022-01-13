@@ -16,6 +16,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $query_level = $db->query("select user_level.* from user inner join user_level on user_level.id_level = user.id_level where id_user=" . $id);
         $array_level = $query_level->fetchAll()[0];
         // var_dump($array_level);
+        // die();
     } else {
         header("Location: " . base_urll("logout.php"));
         // echo "asdasdasd";
@@ -25,7 +26,26 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
 $query_lomba = "select * from lomba inner join perguruan_tinggi on lomba.id_perguruan_tinggi = perguruan_tinggi.id_perguruan_tinggi";
 $stmt_lomba = $db->query($query_lomba);
 $array_lomba = $stmt_lomba->fetchAll();
+
+// untuk soal 8
+
+// $array_lomba = $stmt_lomba->fetch();
+// echo "<pre>";
+// while ($lomba = $stmt_lomba->fetch()) {
+//     var_dump($lomba);
+//     echo "-----------------------------------------------";
+// }
+// $lomba = $stmt_lomba->fetch();
+// var_dump($lomba);
+
+// echo "</pre>";
+// die();
+
+// $array_lomba = $stmt_lomba->fetchAll();
+// echo "<pre>";
 // var_dump($array_lomba);
+// echo "</pre>";
+// die();
 ?>
 
 
@@ -98,7 +118,7 @@ $array_lomba = $stmt_lomba->fetchAll();
             <div class="card-body d-flex align-items-center justify-content-between">
                 <h5 class="float-start my-2">Lomba</h5>
                 <?php if ($array_level['ID_LEVEL'] == 1) : ?>
-                    <a href="/dashboard/tambah_lomba.php" class="btn btn-success flex-end">Tambah</a>
+                    <a href="<?php echo base_urll("dashboard/tambah_lomba.php") ?>" class="btn btn-success flex-end">Tambah</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -120,27 +140,29 @@ $array_lomba = $stmt_lomba->fetchAll();
 
                     <tbody>
                         <?php $ids = 1 ?>
-                        <?php foreach ($array_lomba as $lomba) : ?>
-                            <tr>
-                                <td><?php echo $ids ?></td>
-                                <td><?php echo $lomba["NAMA_LOMBA"] ?></td>
-                                <td><?php echo $lomba["JENIS_LOMBA"] ?></td>
-                                <td><?php echo $lomba["TINGKAT_LOMBA"] ?></td>
-                                <td><?php echo $lomba["HADIAH"] ?></td>
-                                <td><?php echo $lomba["SERTIFIKAT"] ?></td>
-                                <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
-                                <?php if ($array_level["ID_LEVEL"] == 1) : ?>
-                                    <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger me-3">Hapus</a></td>
-                                <?php elseif ($array_level["ID_LEVEL"] == 2) : ?>
-                                    <?php if (pernah_lomba($id, $lomba["ID_LOMBA"])) : ?>
-                                        <td><a href="tdkikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger">Tidak Ikuti</a></td>
-                                    <?php else : ?>
-                                        <td><a href="ikuti_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                        <?php if (count($array_lomba) > 0) : ?>
+                            <?php foreach ($array_lomba as $lomba) : ?>
+                                <tr>
+                                    <td><?php echo $ids ?></td>
+                                    <td><?php echo $lomba["NAMA_LOMBA"] ?></td>
+                                    <td><?php echo $lomba["JENIS_LOMBA"] ?></td>
+                                    <td><?php echo $lomba["TINGKAT_LOMBA"] ?></td>
+                                    <td><?php echo $lomba["HADIAH"] ?></td>
+                                    <td><?php echo $lomba["SERTIFIKAT"] ?></td>
+                                    <td><?php echo $lomba["NAMA_PERGURUAN"] ?></td>
+                                    <?php if ($array_level["ID_LEVEL"] == 1) : ?>
+                                        <td><a href="edit_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary me-3">Edit</a><a href="hapus_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger me-3">Hapus</a></td>
+                                    <?php elseif ($array_level["ID_LEVEL"] == 2) : ?>
+                                        <?php if (pernah_lomba($id, $lomba["ID_LOMBA"])) : ?>
+                                            <td><a href="tdkikut_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-danger">Tidak Ikuti</a></td>
+                                        <?php else : ?>
+                                            <td><a href="ikuti_lomba.php?id=<?php echo $lomba["ID_LOMBA"] ?>" class="btn btn-primary">Ikuti</a></td>
+                                        <?php endif ?>
                                     <?php endif ?>
-                                <?php endif ?>
-                            </tr>
-                            <?php $ids++ ?>
-                        <?php endforeach; ?>
+                                </tr>
+                                <?php $ids++ ?>
+                            <?php endforeach; ?>
+                        <?php endif ?>
                     </tbody>
                 </table>
             </div>

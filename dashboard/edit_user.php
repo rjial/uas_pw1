@@ -34,9 +34,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         header("Location: " . base_urll("dashboard/users.php"));
     }
     if (!empty($_POST) && isset($_POST)) {
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
+        // echo "<pre>";
+        // var_dump($_POST);
+        // echo "</pre>";
         // die();
         $user_name = $_POST['username'];
         // $pass_word = $_POST['password'];
@@ -62,7 +62,14 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 $jurusan = $_POST['jurusan'];
                 $alamat = $_POST['alamat'];
                 $query_peserta = $db->prepare("UPDATE `peserta` SET `NAMA`=?,`KELAS`=?,`ASAL`=?,`JENIS_KELAMIN`=?,`JURUSAN`=?,`ALAMAR`=? WHERE ID_USER=?");
-                $exec_peserta = $query_peserta->execute([$nama_peserta, $kelas, $asal, $jenis_kelamin, $jurusan, $alamat, $id_user]);
+                $query_peserta->bindParam(1, $nama_peserta);
+                $query_peserta->bindParam(2, $kelas);
+                $query_peserta->bindParam(3, $asal);
+                $query_peserta->bindParam(4, $jenis_kelamin);
+                $query_peserta->bindParam(5, $jurusan);
+                $query_peserta->bindParam(6, $alamat);
+                $query_peserta->bindParam(7, $id_user);
+                $exec_peserta = $query_peserta->execute();
                 if ($exec_peserta) {
                     header("Location: " . base_urll("dashboard/users.php"));
                 }

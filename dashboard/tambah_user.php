@@ -36,7 +36,14 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
                 $jurusan = $_POST['jurusan'];
                 $alamat = $_POST['alamat'];
                 $query_peserta = $db->prepare("INSERT INTO `peserta`(`NAMA`, `KELAS`, `ASAL`, `JENIS_KELAMIN`, `JURUSAN`, `ALAMAR`, `ID_PESERTA`, `ID_USER`) VALUES (?,?,?,?,?,?,NULL,?)");
-                $exec_peserta = $query_peserta->execute([$nama_peserta, $kelas, $asal, $jenis_kelamin, $jurusan, $alamat, $last_user]);
+                $query_peserta->bindParam(1, $nama_peserta);
+                $query_peserta->bindParam(2, $kelas);
+                $query_peserta->bindParam(3, $asal);
+                $query_peserta->bindParam(4, $jenis_kelamin);
+                $query_peserta->bindParam(5, $jurusan);
+                $query_peserta->bindParam(6, $alamat);
+                $query_peserta->bindParam(7, $last_user);
+                $exec_peserta = $query_peserta->execute();
                 if ($exec_peserta) {
                     header("Location: " . base_urll("dashboard/users.php"));
                 }

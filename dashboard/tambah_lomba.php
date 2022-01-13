@@ -28,7 +28,13 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $srti = $_POST['sertifikat'];
         $ptt = $_POST['pt'];
         $query = $db->prepare("INSERT INTO `lomba`(`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`, `ID_PERGURUAN_TINGGI`) VALUES (?, ?, ?, ?, ?, NULL, ?)");
-        $exec = $query->execute([$namalmb, $jenislmb, $tngkt, $hdh, $srti, $ptt]);
+        $query->bindParam(1, $namalmb);
+        $query->bindParam(2, $jenislmb);
+        $query->bindParam(3, $tngkt);
+        $query->bindParam(4, $hdh);
+        $query->bindParam(5, $srti);
+        $query->bindParam(6, $ptt);
+        $exec = $query->execute();
         if ($exec) {
             header("Location: " . base_urll("dashboard/lomba.php"));
         }

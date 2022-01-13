@@ -33,7 +33,10 @@ if (!isset($_SESSION['login']) && empty($_SESSION['login'])) {
         $alamat = $_POST['alamat'];
         $akred = $_POST['akreditas'];
         $query = $db->prepare("UPDATE `perguruan_tinggi` SET `NAMA_PERGURUAN`=?,`ALAMAT`=?,`AKREDITAS`=? WHERE `ID_PERGURUAN_TINGGI` = " . $id_pt);
-        $exec = $query->execute([$nama_univ, $alamat, $akred]);
+        $query->bindParam(1, $nama_univ);
+        $query->bindParam(2, $alamat);
+        $query->bindParam(3, $akred);
+        $exec = $query->execute();
         if ($exec) {
             header("Location: " . base_urll("dashboard/perguruan_tinggi.php"));
         }
