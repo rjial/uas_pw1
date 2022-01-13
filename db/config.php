@@ -30,16 +30,22 @@ function pernah_lomba($id_user, $id_lomba)
 
 $jenis_lomba = [
     "Robotik",
-    "Web"
+    "Web",
+    "Desain Grafis",
+    "Photo Grafis"
 ];
 
 $tingkat = [
     "Nasional",
-    "Provinsi"
+    "Provinsi", 
+    "Internasional"
 ];
 
 $sertifikat = [
-    "LSP"
+    "LSP",
+    "Cabang",
+    "Kota",
+    "Nasional"
 ];
 
 $akreditass = [
