@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 02 Jan 2022 pada 11.14
+-- Waktu pembuatan: 13 Jan 2022 pada 08.37
 -- Versi server: 10.5.13-MariaDB
--- Versi PHP: 8.1.1RC1
+-- Versi PHP: 8.1.2RC1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -53,7 +53,8 @@ CREATE TABLE `lomba` (
 --
 
 INSERT INTO `lomba` (`NAMA_LOMBA`, `JENIS_LOMBA`, `TINGKAT_LOMBA`, `HADIAH`, `SERTIFIKAT`, `ID_LOMBA`, `ID_PERGURUAN_TINGGI`) VALUES
-('Lomba Paling Goblok', 'Web', 'Nasional', 10000000, 'LSP', 1, 1);
+('Line Follower', 'Robotik', 'Provinsi', 10000000, 'LSP', 2, 2),
+('Android Programming', 'Web', 'Nasional', 200000, 'LSP', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -73,7 +74,8 @@ CREATE TABLE `perguruan_tinggi` (
 --
 
 INSERT INTO `perguruan_tinggi` (`NAMA_PERGURUAN`, `ALAMAT`, `AKREDITAS`, `ID_PERGURUAN_TINGGI`) VALUES
-('Universitras Genjot Eula', 'asdjflnaslkdfhkashdjfasdasdasdasd', 'A', 1);
+('Universitas Gajah Duduk', 'Jl. Gajah duduk Gg.1 No.1', 'A', 2),
+('STIKI Malang', 'Jl. Tidaraaaaaaaa', 'A', 3);
 
 -- --------------------------------------------------------
 
@@ -191,25 +193,25 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT untuk tabel `lomba`
 --
 ALTER TABLE `lomba`
-  MODIFY `ID_LOMBA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_LOMBA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `perguruan_tinggi`
 --
 ALTER TABLE `perguruan_tinggi`
-  MODIFY `ID_PERGURUAN_TINGGI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PERGURUAN_TINGGI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `ID_PESERTA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PESERTA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_level`
